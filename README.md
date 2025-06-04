@@ -33,7 +33,7 @@ let crestron = new C4X();
 ### Register the `onReady` event in which you configure your serial ports
 That way, even if the Crestron processor is rebooted, your serial ports will still be how you want them.
 ```JS
-crestron.onReady(procInfo => {
+crestron.onReady(async procInfo => {
   // Display informations about the Crestron Processor
   console.log(`C4X Version: ${procInfo.v}`);
   console.log(`C4X Serial Number: ${procInfo.v}`);
@@ -42,14 +42,14 @@ crestron.onReady(procInfo => {
 
   // COM2, baudrate of 38400, 8 databits, Even parity, 1 stopbit
 
-  let projector = crestron.getComPort(2, 38400, 8, 'E', 1);
+  let projector = await crestron.getComPort(2, 38400, 8, 'E', 1);
   projector.onDataReceived(data => {
     console.log(`Data from projector: ${data}`);
   });
 
   // COM3, baudrate of 9600, 8 databits, No parity, 1 stopbit
 
-  let monitor = crestron.getComPort(3, 9600, 8, 'N', 1);
+  let monitor = await crestron.getComPort(3, 9600, 8, 'N', 1);
   monitor.onDataReceived(data => {
     console.log(`Data from monitor: ${data}`);
   });
@@ -57,5 +57,11 @@ crestron.onReady(procInfo => {
   // Power on the displays
   projector.send('power "on"\r\n');
   monitor.send('ka 00 01\r\n');
+
+  // Get relay 1
+  let shades = await c4x.getRelay(1);
+
+  // Close the relay
+  shades.setState(true);
 });
 ```
