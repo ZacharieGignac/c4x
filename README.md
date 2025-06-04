@@ -16,7 +16,7 @@ Load the program on your Crestron processor, and access the serial ports (send, 
 - The Crestron processor and the codec are communicating through base64-encoded JSON messages through the serial port COM1 (for now. Looking into SSH).
 
 ## What is currently working ?
-This is only a draft for. There's debug everywhere. Serial ports and ir-serial ports appears to be fully working. 
+This is only a draft for now. There's debug everywhere. Serial ports and ir-serial ports appears to be fully working. 
 
 But, I would not use this in production for now.
 
