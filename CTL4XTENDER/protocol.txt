@@ -1,0 +1,92 @@
+﻿=== From codec to crestron processor ===
+init request:
+{
+  "C4X": "<random id>",
+  "t": "init"
+}
+
+configure ComPort:
+{
+  "C4X": "<random id>",
+  "t": "ccom",
+  "p": "COM1",
+  "b": 115200,
+  "d": "8N1""
+}
+
+configure IrPort:
+{
+  "C4X": "<random id>",
+  "t": "cirp",
+  "p": "IR1",
+  "b": 9600,
+  "d": "8N1"
+}
+
+ComPort send data:
+{
+  "C4X": "<random id>",
+  "t": "csnd",
+  "p": "COM1",
+  "d": "<data to send>"
+}
+
+IrPort send data:
+{
+  "C4X": "<random id>",
+  "t": "isnd",
+  "p": "IR1",
+  "d": "<data to send>"
+}
+
+
+=== From crestron processor to codec ===
+init notify
+{
+  "C4X": "<id from init request>",
+  "t": "inot",
+  "v": "1.0.0"
+}
+
+configure ComPort response (OK):
+{
+  "C4X": "<id from configure ComPort request>",
+  "t": "crok",
+}
+
+configure ComPort response (Error):
+{
+  "C4X": "<id from configure ComPort request>",
+  "t": "crer",
+  "e": "Error message here"
+}
+
+configure IrPort response (OK):
+{
+  "C4X": "<id from configure IrPort request>",
+  "t": "irok",
+  "s": "ok"
+}
+
+configure IrPort response (Error):
+{
+  "C4X": "<id from configure IrPort request>",
+  "t": "irer",
+  "e": "Error message here"
+}
+
+ComPort data received:
+{
+  "C4X": "<random id>",
+  "t": "crcv",
+  "p": "COM1",
+  "d": "<data received>"
+}
+
+IrPort data received:
+{
+  "C4X": "<random id>",
+  "t": "ircv",
+  "p": "IR1",
+  "d": "<data received>"
+}
